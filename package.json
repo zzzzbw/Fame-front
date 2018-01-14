@@ -13,6 +13,8 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "highlight.js": "^9.12.0",
     "nuxt": "^1.0.0"
   },
   "devDependencies": {
