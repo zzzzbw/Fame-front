@@ -2,7 +2,9 @@
   <div>
     <fame-header></fame-header>
     <div class="container">
-      <nuxt/>
+      <transition name="flow" mode="out-in">
+        <nuxt/>
+      </transition>
     </div>
     <fame-scroll-top></fame-scroll-top>
     <fame-footer></fame-footer>
