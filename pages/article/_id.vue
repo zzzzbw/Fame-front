@@ -15,13 +15,18 @@
         {{tag}}
       </span>
     </div>
+    <fame-comment :article-id="article.id"></fame-comment>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import api from '~/plugins/api'
+  import FameComment from '~/components/Comment.vue'
 
   export default {
+    components: {
+      FameComment
+    },
     asyncData ({params}) {
       return api.getArticle(params.id).then((res) => {
         return {article: res.data}

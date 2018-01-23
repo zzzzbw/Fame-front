@@ -1,13 +1,13 @@
 <template>
   <div>
-    <fame-header></fame-header>
+    <fame-header/>
     <div class="container">
       <transition name="flow" mode="out-in">
         <nuxt/>
       </transition>
     </div>
-    <fame-scroll-top></fame-scroll-top>
-    <fame-footer></fame-footer>
+    <fame-scroll-top/>
+    <fame-footer/>
   </div>
 </template>
 

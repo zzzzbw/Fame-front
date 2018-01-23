@@ -2,7 +2,7 @@
   <div>
     <div class="category-list">
       <a v-for="category in categories" class="category text-bold"
-         @click='goAnchor("#category-"+category.name)'>
+         @click='goAnchor("category-"+category.name)'>
         {{category.name}}({{category.count}})
       </a>
     </div>
@@ -22,6 +22,7 @@
 
 <script type="text/ecmascript-6">
   import api from '~/plugins/api'
+  import FameUtil from '~/plugins/utils/fame'
 
   export default {
     asyncData () {
@@ -35,45 +36,8 @@
       }
     },
     methods: {
-      goAnchor (selector) {
-        let anchor = this.$el.querySelector(selector)
-        let position = anchor.offsetTop
-        this.jump(position)
-      },
-      jump (total) {
-        let distance = document.documentElement.scrollTop || document.body.scrollTop
-        let step = total / 100
-        if (total > distance) {
-          smoothDown()
-        } else {
-          let newTotal = distance - total
-          step = newTotal / 100
-          smoothUp()
-        }
-
-        function smoothDown () {
-          if (distance < total) {
-            distance += step
-            document.body.scrollTop = distance
-            document.documentElement.scrollTop = distance
-            setTimeout(smoothDown, 1)
-          } else {
-            document.body.scrollTop = total
-            document.documentElement.scrollTop = total
-          }
-        }
-
-        function smoothUp () {
-          if (distance > total) {
-            distance -= step
-            document.body.scrollTop = distance
-            document.documentElement.scrollTop = distance
-            setTimeout(smoothUp, 1)
-          } else {
-            document.body.scrollTop = total
-            document.documentElement.scrollTop = total
-          }
-        }
+      goAnchor (id) {
+        FameUtil.goAnchor(id)
       }
     }
   }

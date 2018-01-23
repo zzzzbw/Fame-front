@@ -14,8 +14,8 @@
       // 原生js实现滑动滚动到顶端
       toTop () {
         timer = setInterval(function () {
-          osTop = document.documentElement.scrollTop = document.body.scrollTop
-          let iSpeed = Math.floor(-osTop / 80) // 减速滚动
+          osTop = document.documentElement.scrollTop || document.body.scrollTop
+          let iSpeed = Math.floor(-osTop / 50) // 减速滚动
           // let iSpeed = -6.5 // 固定速度滚动
           document.documentElement.scrollTop = document.body.scrollTop = osTop + iSpeed
           isTop = true

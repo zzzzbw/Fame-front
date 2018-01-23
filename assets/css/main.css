@@ -16,6 +16,7 @@
   opacity: 0;
 }
 
+/* flow */
 .flow-enter-active, .flow-leave-active {
   transition: all .5s;
 }
@@ -25,8 +26,35 @@
   opacity: 0;
 }
 
+/* list */
+.list-enter-active {
+  transition: all .5s ease-in-out;
+}
+
+.list-leave-active {
+  transition: all .5s ease;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.list-enter {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.list-move {
+  transition: all .5s;
+}
+
 a:hover {
   cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 .chip {

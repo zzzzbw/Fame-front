@@ -7,10 +7,6 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
-
-</script>
-
 <style scoped>
   .footer {
     padding: 1em 0;
