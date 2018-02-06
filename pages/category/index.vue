@@ -8,7 +8,7 @@
     </div>
     <div class="category-content">
       <div class="divider"></div>
-      <div v-for="category in categories">
+      <div class="category-item" v-for="category in categories">
         <div class="category-title" :id="'category-'+category.name">{{category.name}}</div>
         <ul class="category-ul">
           <li v-for="article in category.articles" class="article-title">
@@ -63,6 +63,10 @@
   .category-content {
     margin: 20px auto;
     width: 75%;
+  }
+
+  .category-item {
+    margin-bottom: 10px;
   }
 
   .category-title {

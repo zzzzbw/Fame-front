@@ -397,7 +397,6 @@
     width: calc(100% - 56px);
     padding-left: 50px;
     margin-top: 10px;
-    height: 32px;
     line-height: 32px;
   }
 
@@ -437,6 +436,7 @@
   }
 
   .comment-box button {
+    height: 32px;
     border: 0;
     padding: 0 8px;
     border-radius: 4px;
