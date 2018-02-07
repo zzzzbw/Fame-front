@@ -8,6 +8,7 @@
   display: none;
 }
 
+/* transition */
 .move-enter-active, .move-leave-active {
   transition: opacity .3s;
 }
@@ -46,6 +47,8 @@
 .list-move {
   transition: all .5s;
 }
+/* transition end */
+
 
 a:hover {
   cursor: pointer;

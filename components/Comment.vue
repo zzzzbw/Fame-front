@@ -18,7 +18,7 @@
                     <span>回复:{{replyComment.name}}</span>
                     <a @click="closeReply"><span class="icon-close"></span></a>
                   </div>
-                  <div class="reply-preview markdown-body" v-html="replyComment.content"></div>
+                  <div class="reply-preview markdown-body" v-html="replyComment.content" v-highlight></div>
                 </div>
                 <div class="markdown" :key="2">
                   <div class="markdown-editor" :class="{'editing':isEdit}" ref="content" contenteditable="true"
@@ -57,7 +57,7 @@
                 <a class="user-name">{{comment.name}}</a>
                 <span class="comment-date">{{comment.created | time('yyyy.MM.dd hh:mm')}}</span>
               </div>
-              <div class="comment-item-content markdown-body">
+              <div class="comment-item-content markdown-body" v-highlight>
                 <div class="comment-item-reply-box" v-if="comment.pId !== -1 && comment.pComment">
                   <a class="user-name">{{comment.pComment.name}}</a>
                   <div class="comment-item-replay-content" v-html="comment.pComment.content">
@@ -218,9 +218,10 @@
         if (!html || html === '') {
           return alert('请填写回复内容')
         }
-        // contenteditable会把换行添加<div>
+        // contenteditable内容转义
         html = html.replace(/<div>/g, '\n')
         html = html.replace(/<\/div>/g, '')
+        html = html.replace(/&nbsp;/g, ' ')
         const lineOverflow = this.commentContent.split('\n').length > 36
         const lengthOverflow = this.commentContent.length > 1000
         if (lineOverflow || lengthOverflow) {
