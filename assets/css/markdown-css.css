@@ -658,7 +658,7 @@ e91ece3  on 31 Dec 2017
 .markdown-body pre code {
   display: block;
   max-width: auto;
-  padding: 0;
+  padding: 10px;
   margin: 0;
   overflow: visible;
   line-height: inherit;
