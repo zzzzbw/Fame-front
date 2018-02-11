@@ -23,7 +23,7 @@ module.exports = {
   css: [
     {src: '~assets/css/main.css'},
     {src: '~assets/css/normalize.css'},
-    {src: '~assets/css/markdown-css.css'},
+    {src: '~assets/css/github-markdown.css'},
     'highlight.js/styles/darcula.css',
     {src: '~assets/css/icon.css'}
   ],
