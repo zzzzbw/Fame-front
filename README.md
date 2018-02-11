@@ -8,7 +8,7 @@
 
 演示站点:[http://zzzzbw.cn](http://zzzzbw.cn/)
 
-[![travis-cli](https://travis-ci.org/zzzzbw/Fame-front.svg?branch=master)](https://travis-ci.org/) [![MIT](https://img.shields.io/github/license/zzzzbw/Fame.svg)](https://github.com/zzzzbw/Fame/blob/master/LICENSE) ![node](https://img.shields.io/badge/node-%3E%3D%20%200.8.0-green.svg) ![npm](https://img.shields.io/badge/npm-5.5.1-blue.svg) ![nuxt](https://img.shields.io/badge/nuxt-1.3.0-orange.svg)
+[![travis-cli](https://travis-ci.org/zzzzbw/Fame-front.svg?branch=master)](https://travis-ci.org/zzzzbw/Fame-front) [![MIT](https://img.shields.io/github/license/zzzzbw/Fame-front.svg)](https://github.com/zzzzbw/Fame-front/blob/master/LICENSE) ![node](https://img.shields.io/badge/node-%3E%3D%20%200.8.0-green.svg) ![npm](https://img.shields.io/badge/npm-5.5.1-blue.svg) ![nuxt](https://img.shields.io/badge/nuxt-1.3.0-orange.svg)
 
 ### 环境
 
