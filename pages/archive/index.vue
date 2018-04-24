@@ -25,10 +25,9 @@
   import api from '~/plugins/api'
 
   export default {
-    asyncData () {
-      return api.getArchives().then((res) => {
-        return {archives: res.data}
-      })
+    async asyncData () {
+      let {data} = await api.getArchives()
+      return {archives: data}
     }
   }
 </script>

@@ -25,15 +25,9 @@
   import FameUtil from '~/plugins/utils/fame'
 
   export default {
-    asyncData () {
-      return api.getCategories().then((res) => {
-        return {categories: res.data}
-      })
-    },
-    data: function () {
-      return {
-        categories: []
-      }
+    async asyncData () {
+      let {data} = await api.getCategories()
+      return {categories: data}
     },
     methods: {
       goAnchor (id) {

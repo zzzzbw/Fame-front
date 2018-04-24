@@ -6,20 +6,8 @@
         <span class="text-primary" style="margin-left: 10px">Fame</span>
       </div>
       <ul class="tab link-list">
-        <li class="tab-item">
-          <nuxt-link :to="{ path: '/article', query: {page: '1'}}">首页</nuxt-link>
-        </li>
-        <li class="tab-item">
-          <nuxt-link :to="{path: '/category'}">分类</nuxt-link>
-        </li>
-        <li class="tab-item">
-          <nuxt-link :to="{path: '/tag'}">标签</nuxt-link>
-        </li>
-        <li class="tab-item">
-          <nuxt-link :to="{path: '/archive'}">归档</nuxt-link>
-        </li>
-        <li class="tab-item">
-          <nuxt-link :to="{path: '/about'}">关于</nuxt-link>
+        <li class="tab-item" v-for="(list, index) in links" :key="index">
+          <nuxt-link :to="{ path: list.path }" exact>{{list.name}}</nuxt-link>
         </li>
       </ul>
       <div class="header-menu">
@@ -28,20 +16,8 @@
         </div>
         <div class="header-menu-list" :class="{ 'open': menuOpen }">
           <ul>
-            <li class="header-menu-item text-primary">
-              <a @click="to('/article',{page: '1'})">首页</a>
-            </li>
-            <li class="header-menu-item">
-              <a @click="to('/category')">分类</a>
-            </li>
-            <li class="header-menu-item">
-              <a @click="to('/tag')">标签</a>
-            </li>
-            <li class="header-menu-item">
-              <a @click="to('/archive')">归档</a>
-            </li>
-            <li class="header-menu-item">
-              <a @click="to('/about')">关于</a>
+            <li class="header-menu-item text-primary" v-for="(list, index) in links" :key="index">
+              <a @click="to(list.path)">{{list.name}}</a>
             </li>
           </ul>
         </div>
@@ -54,6 +30,13 @@
   export default {
     data () {
       return {
+        links: [
+          {path: '/', name: '首页'},
+          {path: '/category', name: '分类'},
+          {path: '/tag', name: '标签'},
+          {path: '/archive', name: '归档'},
+          {path: '/about', name: '关于'}
+        ],
         menuOpen: false
       }
     },

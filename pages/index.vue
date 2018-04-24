@@ -18,11 +18,11 @@
       <nuxt-link class="article-more text-primary" :to="{ path: '/article/'+article.id }">Read more</nuxt-link>
     </div>
     <div class="front-page">
-      <div class="pre text-primary" v-if="hasPre">
-        <nuxt-link :to="{path:'/article', query: { page: pre }}">← Pre</nuxt-link>
+      <div class="pre text-primary" v-if="page > 1">
+        <nuxt-link :to="{path:'', query: { page: page-1 }}">← Pre</nuxt-link>
       </div>
-      <div class="next text-primary" v-if="hasNext">
-        <nuxt-link :to="{path:'/article', query: { page: next }}">Next →</nuxt-link>
+      <div class="next text-primary" v-if="page < totalPage">
+        <nuxt-link :to="{path:'', query: { page: page+1 }}">Next →</nuxt-link>
       </div>
     </div>
   </div>
@@ -32,19 +32,17 @@
   import api from '~/plugins/api'
 
   export default {
-    asyncData ({params}) {
-      return api.getArticles(params.page).then((res) => {
-        return {pagination: res.data}
-      })
+    watchQuery: ['page'],
+    key: (to) => to.fullPath,
+    transition (to, from) {
+      return 'move'
     },
-    data: function () {
+    async asyncData ({query}) {
+      const {data} = await api.getArticles(query.page)
       return {
-        pagination: Object,
-        articles: [],
-        pre: '',
-        hasPre: false,
-        next: '',
-        hasNext: false
+        articles: data.list,
+        page: data.pageNum || 1,
+        totalPage: data.pages
       }
     },
     methods: {
@@ -54,21 +52,7 @@
         }
       },
       init () {
-        this.articles = this.pagination.list
         this.tagSplit(this.articles)
-        let nowPage = this.pagination.pageNum || 1
-        if (nowPage > 1) {
-          this.hasPre = true
-          this.pre = Number(nowPage) - 1
-        } else {
-          this.hasPre = false
-        }
-        if (nowPage < this.pagination.pages) {
-          this.hasNext = true
-          this.next = Number(nowPage) + 1
-        } else {
-          this.hasNext = false
-        }
       }
     },
     created () {
@@ -78,6 +62,7 @@
 </script>
 
 <style scoped>
+
   .article-item {
     margin-top: 60px;
   }

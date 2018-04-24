@@ -7,15 +7,9 @@
   import api from '~/plugins/api'
 
   export default {
-    asyncData () {
-      return api.getPage('About').then((res) => {
-        return {content: res.data.content}
-      })
-    },
-    data: function () {
-      return {
-        content: ''
-      }
+    async asyncData () {
+      let {data} = await api.getPage('About')
+      return {content: data.content}
     }
   }
 </script>

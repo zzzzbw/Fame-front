@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="tag-list">
-      <a v-for="tag in tags" class="tag-link" @click="changeArticles(tag.key)">
+      <a v-for="tag in tags" class="tag-link" @click="changeArticles(tag.name)">
         <span class="tag chip">
             {{tag.name}}
         </span>
@@ -25,10 +25,9 @@
   import api from '~/plugins/api'
 
   export default {
-    asyncData () {
-      return api.getTags().then((res) => {
-        return {data: res.data}
-      })
+    async asyncData () {
+      let {data} = await api.getTags()
+      return {tags: data}
     },
     data: function () {
       return {
@@ -40,18 +39,14 @@
       }
     },
     methods: {
-      init () {
-        for (let key in this.data) {
-          let d = this.data[key]
-          let tag = {
-            key: key,
-            name: d.name
+      changeArticles (name) {
+        let tag = null
+        for (let key in this.tags) {
+          if (this.tags[key].name === name) {
+            tag = this.tags[key]
+            break
           }
-          this.tags.push(tag)
         }
-      },
-      changeArticles (key) {
-        let tag = this.data[key]
         if (tag !== null) {
           this.show = false
           this.tagTitle = tag.name
@@ -59,9 +54,6 @@
           this.show = true
         }
       }
-    },
-    mounted () {
-      this.init()
     }
   }
 </script>

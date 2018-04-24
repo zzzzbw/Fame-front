@@ -27,22 +27,9 @@
     components: {
       FameComment
     },
-    asyncData ({params}) {
-      return api.getArticle(params.id).then((res) => {
-        return {article: res.data}
-      })
-    },
-    data: function () {
-      return {
-        article: {
-          id: '',
-          title: '',
-          date: '',
-          category: '',
-          tags: [],
-          content: ''
-        }
-      }
+    async asyncData ({params}) {
+      let {data} = await api.getArticle(params.id)
+      return {article: data}
     },
     methods: {
       init () {
