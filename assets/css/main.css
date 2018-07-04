@@ -20,7 +20,6 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-
 /* transition */
 .move-enter-active, .move-leave-active {
   transition: opacity .3s;
@@ -60,17 +59,11 @@
 .list-move {
   transition: all .5s;
 }
-/* transition end */
 
+/* transition end */
 
 a:hover {
   cursor: pointer;
-}
-
-ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
 }
 
 .chip {
