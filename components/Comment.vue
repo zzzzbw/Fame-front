@@ -85,8 +85,9 @@
 <script type="text/ecmascript-6">
   import api from '~/plugins/api'
   import FameUtil from '~/plugins/utils/fame'
+  // import Clipboard from 'clipboard'
 
-  const defaultPlaceholder = '写下你的评论...'
+  const defaultPlaceholder = '写下你的评论,支持markdown语法哟...'
   // 设置999不分页
   const defaultLimit = 999
   export default {
@@ -117,6 +118,14 @@
       toSomeAnchorById (id) {
         FameUtil.goAnchor(id, 120, 60)
       },
+      commentPasteListen () {
+        document.addEventListener('copy', e => {
+          if (!window.getSelection) return
+          const content = window.getSelection().toString()
+          e.clipboardData.setData('text/plain', content)
+          e.preventDefault()
+        })
+      },
       commentClickListen () {
         this.isEdit = true
         this.placeHolder = ''
@@ -129,9 +138,8 @@
       },
       commentEditListen ($event) {
         this.isEdit = true
-        const html = this.$refs.content.innerHTML
-        this.commentContent = html
-        if (html !== '') {
+        this.commentContent = this.$refs.content.innerText
+        if (this.commentContent !== '') {
           this.placeHolder = ''
         }
       },
@@ -273,6 +281,7 @@
     },
     mounted () {
       this.init()
+      this.commentPasteListen()
     }
   }
 </script>
