@@ -7,6 +7,9 @@
   import api from '~/plugins/api'
 
   export default {
+    head () {
+      return {title: `关于`}
+    },
     async asyncData () {
       let {data} = await api.getPage('About')
       return {content: data.content}

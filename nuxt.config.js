@@ -3,7 +3,8 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Fame',
+    title: 'Blog',
+    titleTemplate: '%s - Fame',
     meta: [
       {charset: 'utf-8'},
       {'http-equiv': 'cleartype', content: 'on'},

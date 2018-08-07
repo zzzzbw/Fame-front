@@ -25,6 +25,9 @@
   import api from '~/plugins/api'
 
   export default {
+    head () {
+      return {title: `归档`}
+    },
     async asyncData () {
       let {data} = await api.getArchives()
       return {archives: data}

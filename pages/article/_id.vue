@@ -24,6 +24,9 @@
   import FameComment from '~/components/Comment.vue'
 
   export default {
+    head () {
+      return {title: `${this.article.title}`}
+    },
     components: {
       FameComment
     },

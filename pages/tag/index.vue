@@ -25,6 +25,9 @@
   import api from '~/plugins/api'
 
   export default {
+    head () {
+      return {title: `标签`}
+    },
     async asyncData () {
       let {data} = await api.getTags()
       return {tags: data}
