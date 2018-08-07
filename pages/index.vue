@@ -67,6 +67,10 @@
     margin-top: 60px;
   }
 
+  .article-item:first-child {
+    margin-top: 30px;
+  }
+
   .article-head {
     line-height: 1.2;
     font-size: 1.8rem;

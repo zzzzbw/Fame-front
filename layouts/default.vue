@@ -30,7 +30,8 @@
     padding: 1em;
     margin: 65px auto;
     height: 100%;
-    max-width: 750px;
+    width: 75%;
+    max-width: 960px;
     font-size: 16px;
     position: relative;
   }
