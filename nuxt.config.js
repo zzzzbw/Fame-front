@@ -1,3 +1,4 @@
+// noinspection JSAnnotator
 module.exports = {
   /*
   ** Headers of the page
@@ -16,6 +17,9 @@ module.exports = {
     ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+    ],
+    noscript: [
+      {innerHTML: 'This website requires JavaScript.'}
     ]
   },
   /*
@@ -35,7 +39,24 @@ module.exports = {
     '~/plugins/highlight.js'
   ],
   router: {
-    linkActiveClass: 'active'
+    linkActiveClass: 'active',
+    // nuxt 的bug,scrollToTop不生效，要重写scrollBehavior方法
+    scrollBehavior (to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition
+      } else {
+        let position = {}
+        if (to.matched.length < 2) {
+          position = {x: 0, y: 0}
+        } else if (to.matched.some(r => r.components.default.options.scrollToTop)) {
+          position = {x: 0, y: 0}
+        }
+        if (to.hash) {
+          position = {selector: to.hash}
+        }
+        return position
+      }
+    }
   },
   /*
   ** Customize the progress bar color
