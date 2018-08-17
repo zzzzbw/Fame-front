@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="category-list">
-      <a v-for="category in categories" class="category text-bold"
+      <a v-for="category in categories" :key="category.id" class="category text-bold"
          @click='goAnchor("category-"+category.name)'>
         {{category.name}}({{category.count}})
       </a>
     </div>
     <div class="category-content">
       <div class="divider"></div>
-      <div class="category-item" v-for="category in categories">
+      <div class="category-item" v-for="category in categories" :key="category.id">
         <div class="category-title" :id="'category-'+category.name">{{category.name}}</div>
         <ul class="category-ul">
-          <li v-for="article in category.articles" class="article-title">
+          <li v-for="article in category.articles" :key="article.id" class="article-title">
             <nuxt-link :to="{ path: '/article/'+article.id }" class="text-primary">{{article.title}}</nuxt-link>
           </li>
         </ul>

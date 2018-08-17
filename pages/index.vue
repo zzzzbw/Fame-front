@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="article in articles" class="article-item">
+    <div v-for="article in articles" :key="article.id" class="article-item">
       <h3 class="article-head text-bold">
         <nuxt-link :to="{ path: '/article/'+article.id }">{{article.title}}</nuxt-link>
       </h3>
@@ -9,7 +9,7 @@
       </p>
       <p class="article-date"><span class="icon-eye"></span> {{article.hits}}</p>
       <div class="article-tags">
-        <label v-for="tag in article.tags" class="chip">
+        <label v-for="tag in article.tags" :key="tag" class="chip">
           {{tag}}
         </label>
       </div>

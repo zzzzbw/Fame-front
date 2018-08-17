@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="tag-list">
-      <a v-for="tag in tags" class="tag-link" @click="changeArticles(tag.name)">
+      <a v-for="tag in tags" :key="tag.id" class="tag-link" @click="changeArticles(tag.name)">
         <span class="tag chip">
             {{tag.name}}
         </span>
@@ -12,7 +12,7 @@
         <div class="divider"></div>
         <div class="tag-title">{{tagTitle}}</div>
         <ul class="tag-ul">
-          <li v-for="article in articles" class="article-title">
+          <li v-for="article in articles" :key="article.id" class="article-title">
             <nuxt-link :to="{ path: '/article/'+article.id }" class="text-primary">{{article.title}}</nuxt-link>
           </li>
         </ul>

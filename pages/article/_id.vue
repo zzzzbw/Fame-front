@@ -11,7 +11,7 @@
     </div>
     <div class="article-tags">
       <label class="label-tags">Tags:</label>
-      <span v-for="tag in article.tags" class="chip">
+      <span v-for="tag in article.tags" :key="tag" class="chip">
         {{tag}}
       </span>
     </div>

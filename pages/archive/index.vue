@@ -10,7 +10,7 @@
         <div class="tile">
           <div class="tile-content">
             <p class="tile-subtitle">{{archive.dateStr}}</p>
-            <p v-for="article in archive.articles" class="tile-title">
+            <p v-for="article in archive.articles" :key="article.id" class="tile-title">
               <label class="text-italic">{{article.created | time('MM-dd')}}</label>
               <nuxt-link :to="{ path: '/article/'+article.id }">{{article.title}}</nuxt-link>
             </p>
