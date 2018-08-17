@@ -41,7 +41,7 @@ module.exports = {
   router: {
     linkActiveClass: 'active',
     // nuxt 的bug,scrollToTop不生效，要重写scrollBehavior方法
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior: function (to, from, savedPosition) {
       if (savedPosition) {
         return savedPosition
       } else {
