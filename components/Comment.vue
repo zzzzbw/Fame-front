@@ -2,7 +2,7 @@
   <div class="comment" id="comment">
     <transition-group name="list" tag="span">
       <div class="comment-header" :key="1">
-        <span class="total">{{pagination.total}}条评论</span>
+        <span class="total">{{total}}条评论</span>
         <span class="line"></span>
       </div>
       <div class="comment-box" :key="2">
@@ -83,19 +83,19 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import api from '~/plugins/api'
-  import FameUtil from '~/plugins/utils/fame'
-  // import Clipboard from 'clipboard'
-
   const defaultPlaceholder = '写下你的评论,支持markdown语法哟...'
   // 设置999不分页
   const defaultLimit = 999
+  const defaultPage = 1
   export default {
-    props: ['articleId'],
+    props: {
+      articleId: {
+        type: [String, Number],
+        required: true
+      }
+    },
     data: function () {
       return {
-        pagination: Object,
-        comments: [],
         commentAgrees: [],
         commentDisagrees: [],
         commentContent: '',
@@ -113,10 +113,18 @@
         placeHolder: defaultPlaceholder
       }
     },
+    computed: {
+      comments () {
+        return this.$store.state.comment.pagination.list
+      },
+      total () {
+        return this.$store.state.comment.pagination.total
+      }
+    },
     methods: {
       // 跳转到某条指定的id位置
       toSomeAnchorById (id) {
-        FameUtil.goAnchor(id, 120, 60)
+        this.$util.goAnchor(id, 120, 60)
       },
       commentPasteListen () {
         document.addEventListener('copy', e => {
@@ -157,8 +165,6 @@
         this.toSomeAnchorById('reply')
       },
       clearComment () {
-        this.pagination = {}
-        this.comments = []
         this.commentContent = ''
         this.name = ''
         this.email = ''
@@ -187,25 +193,21 @@
         if (assess === 'disagree') {
           if (this.isDisagree(commentId)) return
         }
-        const res = await api.assessComment(commentId, assess)
-        if (res.success) {
+        let res = null
+        if (assess === 'agree') {
+          res = await this.$store.dispatch('agreeComment', commentId)
+        }
+        if (assess === 'disagree') {
+          res = await this.$store.dispatch('disagreeComment', commentId)
+        }
+        if (res && res.success) {
           if (localStorage) {
-            let comment
-            for (let entity of this.comments) {
-              if (entity.id === commentId) {
-                comment = entity
-                break
-              }
-            }
-            if (!comment) return
             if (assess === 'agree') {
               this.commentAgrees.push(commentId)
               localStorage.setItem('COMMENT_AGREE', JSON.stringify(this.commentAgrees))
-              comment.agree = comment.agree + 1
             } else if (assess === 'disagree') {
               this.commentDisagrees.push(commentId)
               localStorage.setItem('COMMENT_DISAGREE', JSON.stringify(this.commentDisagrees))
-              comment.disagree = comment.disagree + 1
             }
           }
         } else {
@@ -236,37 +238,31 @@
           return alert('请回复内容不超过1000字/36行')
         }
         this.isComment = true
-        const res = await api.postComment(this.articleId, this.replyComment.id, html,
-          this.name, this.email, this.website)
+        const res = await this.$store.dispatch('submitComment', {
+          articleId: this.articleId,
+          replyCommentId: this.replyComment.id,
+          content: html,
+          name: this.name,
+          email: this.email,
+          website: this.website
+        })
         this.isComment = false
         if (res.success) {
+          this.loadComments()
           this.clearComment()
           this.init()
         } else {
           alert(res.msg)
         }
       },
-      async init () {
-        const res = await api.getComment(this.articleId, 1, defaultLimit)
-        if (res.success) {
-          this.pagination = res.data
-          this.comments = this.pagination.list
-        } else {
-          alert('获取评论失败')
-          return
-        }
-        let commentMap = new Map()
-        for (let comment of this.comments) {
-          commentMap.set(comment.id, comment)
-        }
-        for (let comment of this.comments) {
-          if (comment.pId && comment.pId !== -1) {
-            let pComment = commentMap.get(comment.pId)
-            if (pComment) {
-              comment.pComment = pComment
-            }
-          }
-        }
+      async loadComments () {
+        await this.$store.dispatch('getComments', {
+          articleId: this.articleId,
+          page: defaultPage,
+          limit: defaultLimit
+        })
+      },
+      init () {
         if (localStorage) {
           const commentAgrees = localStorage.getItem('COMMENT_AGREE')
           const commentDisagrees = localStorage.getItem('COMMENT_DISAGREE')
@@ -280,6 +276,7 @@
       }
     },
     mounted () {
+      this.loadComments()
       this.init()
       this.commentPasteListen()
     }

@@ -21,20 +21,21 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import api from '~/plugins/api'
-  import FameUtil from '~/plugins/utils/fame'
-
   export default {
     head () {
       return {title: `分类`}
     },
-    async asyncData () {
-      let {data} = await api.getCategories()
-      return {categories: data}
+    fetch ({store}) {
+      return store.dispatch('getCategories')
+    },
+    computed: {
+      categories () {
+        return this.$store.state.category.data
+      }
     },
     methods: {
       goAnchor (id) {
-        FameUtil.goAnchor(id)
+        this.$util.goAnchor(id)
       }
     }
   }

@@ -58,7 +58,7 @@ export function get (url, params = {}) {
 /**
  * post 请求方法
  * @param url
- * @param data
+ * @param params
  * @returns {Promise}
  */
 export function post (url, params = {}) {

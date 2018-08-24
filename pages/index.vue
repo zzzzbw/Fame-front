@@ -9,7 +9,7 @@
       </p>
       <p class="article-date"><span class="icon-eye"></span> {{article.hits}}</p>
       <div class="article-tags">
-        <label v-for="tag in article.tags" :key="tag" class="chip">
+        <label v-for="tag in $util.stringToTags(article.tags)" :key="tag" class="chip">
           {{tag}}
         </label>
       </div>
@@ -18,45 +18,39 @@
       <nuxt-link class="article-more text-primary" :to="{ path: '/article/'+article.id }">Read more</nuxt-link>
     </div>
     <div class="front-page">
-      <div class="pre text-primary" v-if="page > 1">
-        <nuxt-link :to="{path:'', query: { page: page-1 }}">← Pre</nuxt-link>
+      <div class="pre text-primary" v-if="currentPage > 1">
+        <nuxt-link :to="{path:'', query: { page: currentPage-1 }}">← Pre</nuxt-link>
       </div>
-      <div class="next text-primary" v-if="page < totalPage">
-        <nuxt-link :to="{path:'', query: { page: page+1 }}">Next →</nuxt-link>
+      <div class="next text-primary" v-if="currentPage < totalPage">
+        <nuxt-link :to="{path:'', query: { page: currentPage+1 }}">Next →</nuxt-link>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import api from '~/plugins/api'
-
   export default {
     watchQuery: ['page'],
     key: (to) => to.fullPath,
     transition (to, from) {
       return 'move'
     },
-    async asyncData ({query}) {
-      const {data} = await api.getArticles(query.page)
-      return {
-        articles: data.list,
-        page: data.pageNum || 1,
-        totalPage: data.pages
-      }
+    head () {
+      return {title: `Blog`}
     },
-    methods: {
-      tagSplit (articles) {
-        for (let index in articles) {
-          articles[index].tags = this.$util.stringToTags(articles[index].tags)
-        }
+    fetch ({store, query}) {
+      return store.dispatch('getArticles', query.page)
+    },
+    computed: {
+      articles () {
+        return this.$store.state.article.list.data
       },
-      init () {
-        this.tagSplit(this.articles)
+      totalPage () {
+        return this.$store.state.article.list.totalPage
+      },
+      currentPage () {
+        return this.$store.state.article.list.currentPage
       }
-    },
-    created () {
-      this.init()
     }
   }
 </script>

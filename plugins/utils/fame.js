@@ -24,6 +24,9 @@ const STATIC = {
  * @returns {string}
  */
 function tagsToString (tags) {
+  if (tags.length === 0) {
+    return ''
+  }
   let str = ''
   for (let i = 0; i < tags.length; i++) {
     str += tags[i] + ','
@@ -37,6 +40,9 @@ function tagsToString (tags) {
  * @returns {Array}
  */
 function stringToTags (str) {
+  if (!str) {
+    return []
+  }
   return str.toString().split(',')
 }
 

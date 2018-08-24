@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="article">
     <h2 class="article-title text-bold">{{article.title}}</h2>
     <div class="article-info">
       <p class="article-category"><span class="icon-folder"></span> {{article.category | formatCategory}}</p>
@@ -11,42 +11,66 @@
     </div>
     <div class="article-tags">
       <label class="label-tags">Tags:</label>
-      <span v-for="tag in article.tags" :key="tag" class="chip">
+      <span v-for="tag in $util.stringToTags(article.tags)" :key="tag" class="chip">
         {{tag}}
       </span>
     </div>
-    <fame-comment :article-id="article.id"></fame-comment>
+    <comment :article-id="article.id"></comment>
+
+    <big-img
+      :visible.sync="isBigImg"
+      :img="img">
+    </big-img>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import api from '~/plugins/api'
-  import FameComment from '~/components/Comment.vue'
+  import Comment from '~/components/Comment.vue'
+  import BigImg from '~/components/BigImg.vue'
 
   export default {
     head () {
       return {title: `${this.article.title}`}
     },
-    components: {
-      FameComment
+    fetch ({store, params}) {
+      return store.dispatch('getArticle', params.id)
     },
-    async asyncData ({params}) {
-      let {data} = await api.getArticle(params.id)
-      return {article: data}
-    },
-    methods: {
-      init () {
-        this.article.tags = this.$util.stringToTags(this.article.tags)
+    data () {
+      return {
+        isBigImg: false,
+        img: ''
       }
     },
-    created () {
-      this.init()
+    components: {
+      Comment,
+      BigImg
+    },
+    computed: {
+      article () {
+        return this.$store.state.article.detail
+      }
+    },
+    methods: {
+      initEvent () {
+        const markdown = document.getElementById('article').getElementsByClassName('markdown-body')[0]
+        const imgs = markdown.getElementsByTagName('img')
+        let _this = this
+        for (let i = 0; i < imgs.length; i++) {
+          imgs[i].addEventListener('click', (e) => {
+            e.stopPropagation()
+            _this.isBigImg = true
+            _this.img = imgs[i].getAttribute('src')
+          })
+        }
+      }
+    },
+    mounted () {
+      this.initEvent()
     }
   }
 </script>
 
 <style scoped>
-
   .article-title {
     color: #24292e;;
     margin-top: 30px;
@@ -85,4 +109,5 @@
   .article-tags .chip {
     margin-right: 5px;
   }
+
 </style>

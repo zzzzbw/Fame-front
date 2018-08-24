@@ -22,20 +22,20 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import api from '~/plugins/api'
-
   export default {
     head () {
       return {title: `标签`}
     },
-    async asyncData () {
-      let {data} = await api.getTags()
-      return {tags: data}
+    fetch ({store}) {
+      return store.dispatch('getTags')
+    },
+    computed: {
+      tags () {
+        return this.$store.state.tag.data
+      }
     },
     data: function () {
       return {
-        data: [],
-        tags: [],
         articles: [],
         tagTitle: '',
         show: false
@@ -43,13 +43,7 @@
     },
     methods: {
       changeArticles (name) {
-        let tag = null
-        for (let key in this.tags) {
-          if (this.tags[key].name === name) {
-            tag = this.tags[key]
-            break
-          }
-        }
+        let tag = this.tags.find(tag => Object.is(tag.name, name))
         if (tag !== null) {
           this.show = false
           this.tagTitle = tag.name
