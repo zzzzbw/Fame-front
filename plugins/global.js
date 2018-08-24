@@ -1,4 +1,6 @@
 import Vue from 'vue'
-import FameUtil from './utils/fame'
+import util from './utils/fame'
+import clickOutside from './clickoutside'
 
-Vue.prototype.$util = FameUtil
+Vue.prototype.$util = util
+Vue.directive('click-outside', clickOutside)
