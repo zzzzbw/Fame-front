@@ -17,4 +17,10 @@ hljs.registerLanguage('python', require('highlight.js/lib/languages/python'))
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
 hljs.registerLanguage('typescript', require('highlight.js/lib/languages/typescript'))
 
-export default hljs
+// export default hljs
+export function highlight (el) {
+  let blocks = el.querySelectorAll('pre code')
+  blocks.forEach((block) => {
+    hljs.highlightBlock(block)
+  })
+}

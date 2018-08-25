@@ -1,6 +1,15 @@
-import Vue from 'vue'
-import FameUtil from './utils/fame'
-import hljs from './highlight'
+import FameUtil from './tools'
+
+// 时间格式化
+export function time (time, format) {
+  let date = new Date(time)
+  return formatDate(date, format || 'yyyy-mm-dd HH:ss')
+}
+
+// 分类格式化
+export function formatCategory (category) {
+  return category || FameUtil.STATIC.DEFAULT_CATEGORY
+}
 
 function formatDate (date, fmt) {
   if (/(y+)/.test(fmt)) {
@@ -25,35 +34,3 @@ function formatDate (date, fmt) {
 function padLeftZero (str) {
   return ('00' + str).substr(str.length)
 }
-
-/**
- *  引用highlight
- */
-Vue.directive('highlight', function (el) {
-  let blocks = el.querySelectorAll('pre code')
-  blocks.forEach((block) => {
-    hljs.highlightBlock(block)
-  })
-})
-
-/**
- * 时间格式化filter
- */
-Vue.filter('time', (time, format) => {
-  var date = new Date(time)
-  return formatDate(date, format || 'yyyy-mm-dd HH:ss')
-})
-
-/**
- * 分类格式化
- */
-Vue.filter('formatCategory', (category) => {
-  return category || FameUtil.STATIC.DEFAULT_CATEGORY
-})
-
-/**
- * 根据逗号分割成数组
- */
-Vue.filter('splitArray', (str) => {
-  return str.split(',')
-})

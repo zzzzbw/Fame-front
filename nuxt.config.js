@@ -33,10 +33,13 @@ module.exports = {
     {src: '~assets/css/icon.css'}
   ],
   plugins: [
-    '~/plugins/api.js',
-    '~/plugins/global.js',
-    '~/plugins/filters.js',
-    '~/plugins/highlight.js'
+    {src: '~/plugins/api.js'},
+    {src: '~/plugins/highlight.js'},
+    {src: '~/plugins/clickoutside.js'},
+    {src: '~/plugins/filters.js'},
+    {src: '~/plugins/global.js'},
+    {src: '~/plugins/http.js'},
+    {src: '~/plugins/tools.js'}
   ],
   router: {
     linkActiveClass: 'active',
@@ -67,10 +70,8 @@ module.exports = {
   */
   build: {
     vendor: [
-      '~/plugins/api.js',
-      '~/plugins/global.js',
-      '~/plugins/filters.js',
-      '~/plugins/highlight.js'
+      'axios',
+      'highlight.js'
     ],
     extractCSS: true,
     /*
