@@ -28,8 +28,8 @@ module.exports = {
   css: [
     {src: '~assets/css/main.css'},
     {src: '~assets/css/normalize.css'},
-    {src: '~assets/css/github-markdown.css'},
-    'highlight.js/styles/darcula.css',
+    {src: '~assets/css/style.css'},
+    'highlight.js/styles/Tomorrow.css',
     {src: '~assets/css/icon.css'}
   ],
   plugins: [

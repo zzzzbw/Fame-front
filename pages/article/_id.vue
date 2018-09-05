@@ -72,14 +72,12 @@
 
 <style scoped>
   .article-title {
-    color: #24292e;;
-    margin-top: 30px;
-    font-size: 2.0rem;
-    text-align: center;
+    color: #34495e;
+    margin: 1.2em 0 0;
+    font-size: 2.0em;
   }
 
   .article-info {
-    text-align: center;
   }
 
   .article-date {
@@ -108,6 +106,12 @@
 
   .article-tags .chip {
     margin-right: 5px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .article-title {
+      font-size: 1.8em;
+    }
   }
 
 </style>

@@ -27,12 +27,13 @@
 
 <style>
   .container {
-    padding: 1em;
-    margin: 65px auto;
+    padding: 2em 1em;
+    margin: 30px auto 0;
     height: 100%;
-    width: 75%;
-    max-width: 960px;
+    max-width: 980px;
     font-size: 16px;
     position: relative;
   }
+
+
 </style>

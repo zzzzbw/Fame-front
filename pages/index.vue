@@ -1,9 +1,9 @@
 <template>
   <div>
     <div v-for="article in articles" :key="article.id" class="article-item">
-      <h3 class="article-head text-bold">
+      <h2 class="article-head text-bold">
         <nuxt-link :to="{ path: '/article/'+article.id }">{{article.title}}</nuxt-link>
-      </h3>
+      </h2>
       <p class="article-date"><span class="icon-folder"></span> {{article.category | formatCategory}}</p>
       <p class="article-date text-italic"><span class="icon-calendar"></span> {{article.created | time('yyyy-MM-dd')}}
       </p>
@@ -58,7 +58,7 @@
 <style scoped>
 
   .article-item {
-    margin-top: 60px;
+    padding-bottom: 30px;
   }
 
   .article-item:first-child {
@@ -67,7 +67,7 @@
 
   .article-head {
     line-height: 1.2;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin: 0;
   }
 
@@ -85,7 +85,7 @@
   .article-item .article-date {
     display: inline-block;
     color: #7f8c8d;
-    margin: 10px 5px;
+    margin: 5px 5px;
     font-size: 0.9em;
   }
 
@@ -95,7 +95,6 @@
 
   .article-item .article-more {
     font-weight: 600;
-    margin-top: 15px;
     font-size: 16px;
     text-decoration: none;
     display: inline-block;
