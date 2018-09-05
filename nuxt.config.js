@@ -16,7 +16,12 @@ module.exports = {
       {name: 'author', content: 'zzzzbw@gmail.com'}
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: 'http://fonts.font.im/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700,700italic'
+      }
     ],
     noscript: [
       {innerHTML: 'This website requires JavaScript.'}
@@ -29,7 +34,7 @@ module.exports = {
     {src: '~assets/css/main.css'},
     {src: '~assets/css/normalize.css'},
     {src: '~assets/css/style.css'},
-    'highlight.js/styles/Tomorrow.css',
+    'highlight.js/styles/tomorrow.css',
     {src: '~assets/css/icon.css'}
   ],
   plugins: [

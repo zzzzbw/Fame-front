@@ -94,7 +94,7 @@
   }
 
   .article-item .article-more {
-    font-weight: 600;
+    font-weight: bold;
     font-size: 16px;
     text-decoration: none;
     display: inline-block;
@@ -108,11 +108,10 @@
   .front-page {
     margin: 4em 3em;
     font-size: 15px;
-    font-weight: 600;
-
   }
 
   .front-page a {
+    font-weight: bold;
     color: #5764c6;
     text-decoration: none;
   }
